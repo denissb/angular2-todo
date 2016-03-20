@@ -2,7 +2,7 @@
 import {Component} from 'angular2/core';
 import Todo from './todo.component';
 import TodoService from '../services/todo.service';
-import {TodoModel} from '../models/todo.model';
+import {ITodoModel} from '../models/todo.model';
 import CompletedPipe from '../pipes/completed.pipe';
 
 @Component({
@@ -10,14 +10,14 @@ import CompletedPipe from '../pipes/completed.pipe';
     pipes: [CompletedPipe],
     template: `
     <ul class="list-group">
-        <todo *ngFor="#todo of todos" [todo]="todo"></todo>
+        <todo *ngFor="#todo of todos | async" [todo]="todo"></todo>
     </ul>
     <span>Left: {{todos | completed}}</span>
     `,
     directives: [Todo]
 })
 export default class TodoList {
-    todos: TodoModel[];
+    todos: ITodoModel[];
     
     constructor(todoService: TodoService) {
         this.todos = todoService.todos;

@@ -1,6 +1,6 @@
 import {Component, Input} from 'angular2/core';
 import TodoService from '../services/todo.service';
-import {TodoModel} from '../models/todo.model';
+import {ITodoModel} from '../models/todo.model';
 
 @Component({
     selector: 'todo',
@@ -21,15 +21,15 @@ import {TodoModel} from '../models/todo.model';
     </li>`
 })
 export default class Todo {
-    @Input() todo: TodoModel;
+    @Input() todo: ITodoModel;
     
     constructor(public todoService: TodoService) {}
 
-    toggle(todo: TodoModel) {
+    toggle(todo: ITodoModel) {
         this.todoService.toggle(todo);
     }
 
-    delete(todo: TodoModel) {
+    delete(todo: ITodoModel) {
         this.todoService.delete(todo);
     }
 }

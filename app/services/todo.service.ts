@@ -1,41 +1,38 @@
 import {Injectable} from 'angular2/core';
-import {TodoModel} from '../models/todo.model';
+import {Store} from '@ngrx/store';
+import {ITodoModel, ITodosState} from '../models/todo.model';
+import {Observable} from 'rxjs';
+
+import {
+    ADD_TODO,
+    UPDATE_TODO,
+    DELETE_TODO
+} from '../models/todo.model';
+
+
+interface AppState {
+    todos: ITodosState
+}
 
 @Injectable()
 export default class TodoService {
-    todos: TodoModel[];
+    todos: Observable<ITodoModel[]>;
     static STORAGE_KEY = 'todos';
 
-    constructor() {
-        this.todos = this.getState() || [
-            { title: 'Read the todo list', completed: true },
-            { title: 'Look at the code', completed: false }
-        ];
+    constructor(private _store: Store<AppState>) {
+        const $store: Observable<ITodosState> = _store.select('todos');
+        this.todos = $store.map(data => data.entries);
     }
 
     add(todo: string): void {
-        if (!todo.length) {
-            return;
-        }
-        this.todos.push({ title: todo, completed: false });
-        this.saveState();
+        this._store.dispatch({type: ADD_TODO, payload: todo});
     }
 
-    toggle(todo: TodoModel): void {
-        todo.completed = !todo.completed;
-        this.saveState();
+    toggle(todo: ITodoModel): void {
+        this._store.dispatch({ type: UPDATE_TODO, payload: todo });
     }
 
-    delete(todo: TodoModel):void {
-        this.todos.splice(this.todos.indexOf(todo), 1);
-        this.saveState();
-    }
-
-    private saveState() {
-        localStorage.setItem(TodoService.STORAGE_KEY, JSON.stringify(this.todos));
-    }
-
-    private getState(): TodoModel[] {
-        return JSON.parse(localStorage.getItem(TodoService.STORAGE_KEY));
+    delete(todo: ITodoModel):void {
+        this._store.dispatch({ type: DELETE_TODO, payload: todo });
     }
 }

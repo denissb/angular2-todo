@@ -1,6 +1,5 @@
 import {Component, Input} from 'angular2/core';
 import TodoService from '../services/todo.service';
-import {TodoModel} from '../models/todo.model';
 
 @Component({
     selector: 'add-todo',
@@ -11,11 +10,10 @@ import {TodoModel} from '../models/todo.model';
     </div>`
 })
 export default class Todo {
-    
     constructor(public todoService: TodoService) {
     }
 
-    addTodo(todo: any) {
+    addTodo(todo: HTMLInputElement) {
         this.todoService.add(todo.value);
         todo.value = '';
     }
