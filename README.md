@@ -2,9 +2,12 @@
 
 This is app is a simple sandbox app for playing around with Angular 2
 
-##Installaton
+## Installaton
 
 ``
 npm install
+
+## Running
+``
 npm start
 ``
