@@ -6,6 +6,7 @@ This is app is a simple sandbox app for playing around with Angular 2
 
 ``
 npm install
+``
 
 ## Running
 ``
