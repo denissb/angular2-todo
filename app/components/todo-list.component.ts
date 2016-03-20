@@ -12,7 +12,7 @@ import CompletedPipe from '../pipes/completed.pipe';
     <ul class="list-group">
         <todo *ngFor="#todo of todos | async" [todo]="todo"></todo>
     </ul>
-    <span>Left: {{todos | completed}}</span>
+    <span>Left: {{todos | async | completed}}</span>
     `,
     directives: [Todo]
 })
