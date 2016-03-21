@@ -4,4 +4,15 @@ import {AppComponent} from './app.component'
 import {provideStore} from '@ngrx/store';
 import {todos} from './reducers/todos';
 
-bootstrap(AppComponent, [provideStore({ todos })]).catch(err => console.error(err));
+//Devtools
+import {instrumentStore, devtoolsConfig} from '@ngrx/devtools';
+
+bootstrap(AppComponent, [
+    provideStore({ todos }), 
+    instrumentStore(),
+    devtoolsConfig({
+        position: 'right',
+        visible: true,
+        size: 0.2
+    })
+]).catch(err => console.error(err));

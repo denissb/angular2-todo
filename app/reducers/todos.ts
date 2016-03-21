@@ -1,5 +1,6 @@
 import { Action, Reducer, Store } from '@ngrx/store';
 import { ITodoModel, ITodosState } from '../models/todo.model';
+import R from 'ramda'; // Ramda typings not yet finished
 
 import {
     ADD_TODO,
@@ -18,19 +19,19 @@ export const todos: Reducer<any> = (state = initialState, action: Action) => {
     let newState: ITodosState;
     switch (action.type) {
         case ADD_TODO:
-            newState = Object.assign({}, state);
+            newState = R.clone(state);
             newState.entries.push({
                 title: action.payload,
                 completed: false
             });
             return newState;
         case UPDATE_TODO:
-            newState = Object.assign({}, state);
+            newState = R.clone(state);
             let updateIndex = newState.entries.indexOf(action.payload);
             newState.entries[updateIndex].completed = !newState.entries[updateIndex].completed;
             return newState;
         case DELETE_TODO:
-            newState = Object.assign({}, state);
+            newState = R.clone(state);
             let deleteIndex = newState.entries.indexOf(action.payload);
             newState.entries.splice(deleteIndex, 1);
             return newState;
