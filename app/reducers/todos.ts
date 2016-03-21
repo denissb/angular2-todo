@@ -27,12 +27,12 @@ export const todos: Reducer<any> = (state = initialState, action: Action) => {
             return newState;
         case UPDATE_TODO:
             newState = R.clone(state);
-            let updateIndex = newState.entries.indexOf(action.payload);
+            let updateIndex = state.entries.indexOf(action.payload);
             newState.entries[updateIndex].completed = !newState.entries[updateIndex].completed;
             return newState;
         case DELETE_TODO:
             newState = R.clone(state);
-            let deleteIndex = newState.entries.indexOf(action.payload);
+            let deleteIndex = state.entries.indexOf(action.payload);
             newState.entries.splice(deleteIndex, 1);
             return newState;
         default:
