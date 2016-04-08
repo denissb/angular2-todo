@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
-import TodoList from './components/todo-list.component';
-import AddTodo from './components/add-todo.component';
-import Header from './components/header.component';
+import TodoList from './components/todo/todo-list.component';
+import AddTodo from './components/todo/add-todo.component';
+import Header from './components/todo/header.component';
 import TodoService from './services/todo.service';
 
 //Devtools
